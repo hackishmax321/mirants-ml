@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import joblib
 from pydantic import BaseModel
@@ -219,6 +220,14 @@ country_population_millions = [
 ]
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class PredictionRequest(BaseModel):
     country_name: str
